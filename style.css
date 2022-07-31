@@ -1,0 +1,41 @@
+th,
+td {
+    padding: 5px;
+    border: 1px solid #000;
+    white-space: nowrap;
+}
+
+/*table {*/
+/*    width: 100%;*/
+/*    overflow: auto;*/
+/*}*/
+
+#world {
+    padding-bottom: 10px;
+}
+
+
+table {
+    /*width: 100%;*/
+    background-color: whitesmoke;
+    white-space: nowrap;
+    overflow: auto;
+    table-layout:fixed;
+}
+
+td {
+    border: 1px solid darkgray;
+    width: 20px;
+    height: 20px;
+}
+
+
+
+td.dead {
+    background-color: transparent;
+    overflow: hidden;
+}
+
+td.alive {
+    background-color: blue;
+}
