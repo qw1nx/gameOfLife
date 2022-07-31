@@ -222,3 +222,7 @@ function updateButtonState(){
 function resetWorld() {
     location.reload();
 }
+
+module.exports = {
+    getNeighborCount
+}
