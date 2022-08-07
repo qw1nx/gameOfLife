@@ -1,7 +1,7 @@
 let rows;
 let cols;
-let started;// Set to true when use clicks start
-let timer;//To control evolutions
+let started;
+let timer;
 let evolutionSpeed=1000;// Time between generations
 let currGen =[rows];
 let nextGen =[rows];
@@ -23,13 +23,12 @@ function onSubmitGrid(){
     colsInput.value = '';
     rowsInput.value = '';
 
-    createWorld();// The visual table
-    createGenArrays();// current and next generations
-    initGenArrays();//Set all array locations to 0=dead
+    createWorld();
+    createGenArrays();
+    initGenArrays();
 }
 
 
-// Creates two-dimensional arrays
 function createGenArrays() {
     for (let i = 0; i < rows; i++) {
         currGen[i] = new Array(cols);
@@ -46,7 +45,6 @@ function initGenArrays() {
     }
 }
 
-//create table and append to world
 function createWorld() {
     let world = document.querySelector('#world');
 
@@ -70,7 +68,6 @@ function cellClick() {
     let loc = this.id.split("_");
     let row = Number(loc[0]);
     let col = Number(loc[1]);
-// Toggle cell alive or dead
     if (this.className==='alive'){
         this.setAttribute('class', 'dead');
         currGen[row][col] = 0;
@@ -87,8 +84,6 @@ function createNextGen() {
 
             let neighbors = getNeighborCount(row, col);
 
-            // Check the rules
-            // If Alive
             if (currGen[row][col] === 1) {
 
                 if (neighbors < 2) {
@@ -99,10 +94,8 @@ function createNextGen() {
                     nextGen[row][col] = 0;
                 }
             } else if (currGen[row][col] === 0) {
-                // If Dead or Empty
 
                 if (neighbors === 3) {
-                    // Propogate the species
                     nextGen[row][col] = 1;// Birth?
                 }
             }
@@ -115,54 +108,36 @@ function getNeighborCount(row, col) {
     let nRow = Number(row);
     let nCol = Number(col);
 
-    // Make sure we are not at the first row
     if (nRow - 1 >= 0) {
-        // Check top neighbor
         if (currGen[nRow - 1][nCol] === 1)
             count++;
     }
-    // Make sure we are not in the first cell
-    // Upper left corner
     if (nRow - 1 >= 0 && nCol - 1 >= 0) {
-        //Check upper left neighbor
         if (currGen[nRow - 1][nCol - 1] === 1)
             count++;
     }
-// Make sure we are not on the first row last column
-    // Upper right corner
     if (nRow - 1 >= 0 && nCol + 1 < cols) {
-        //Check upper right neighbor
         if (currGen[nRow - 1][nCol + 1] === 1)
             count++;
     }
-// Make sure we are not on the first column
     if (nCol - 1 >= 0) {
-        //Check left neighbor
         if (currGen[nRow][nCol - 1] === 1)
             count++;
     }
-    // Make sure we are not on the last column
     if (nCol + 1 < cols) {
-        //Check right neighbor
         if (currGen[nRow][nCol + 1] === 1)
             count++;
     }
-// Make sure we are not on the bottom left corner
     if (nRow + 1 < rows && nCol - 1 >= 0) {
-        //Check bottom left neighbor
         if (currGen[nRow + 1][nCol - 1] === 1)
             count++;
     }
-// Make sure we are not on the bottom right
     if (nRow + 1 < rows && nCol + 1 < cols) {
-        //Check bottom right neighbor
         if (currGen[nRow + 1][nCol + 1] === 1)
             count++;
     }
 
-    // Make sure we are not on the last row
     if (nRow + 1 < rows) {
-        //Check bottom neighbor
         if (currGen[nRow + 1][nCol] === 1)
             count++;
     }
